@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 public class conectaDAO {
     
-    public String url = "jdbc:mysql://localhots:3306/bancoleiloes";
+    public String url = "jdbc:mysql://localhost:3306/bancoleiloes";
     public String user = "root";
     public String password = "taticodobem@357";
     
