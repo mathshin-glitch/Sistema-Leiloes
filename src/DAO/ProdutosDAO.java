@@ -48,5 +48,29 @@ public class ProdutosDAO {
             return ex.getErrorCode();
         }
     }
+    
+    //Método para Listar produtos no banco
+    public ArrayList<ProdutosDTO> ListaProdutos(){
+        try{
+            String sql = "SELECT * FROM produtos";
+            prep = this.conn.prepareStatement(sql);
+            ArrayList<ProdutosDTO> lista = new ArrayList<>();
+            resultset = prep.executeQuery();
+            
+            while(resultset.next()){
+                ProdutosDTO p = new ProdutosDTO();
+                p.setId(resultset.getInt("id"));
+                p.setNome(resultset.getString("nome"));
+                p.setValor(resultset.getInt("valor"));
+                p.setStatus(resultset.getString("status"));
+                lista.add(p);
+                
+            }
+                return lista;
+        }catch(Exception ex){
+            System.out.println("Erro ao retorna Lista do banco: " + ex.getMessage());
+                return null;
+        }
+    }
 
 }

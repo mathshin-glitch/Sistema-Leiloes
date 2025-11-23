@@ -1,25 +1,49 @@
 package VIEW;
 
 
+import DAO.ProdutosDAO;
+import conexao.conectaDAO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.util.List;
+import javax.swing.table.TableRowSorter;
+import objetos.ProdutosDTO;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-/**
- *
- * @author Adm
- */
 public class listagemVIEW extends javax.swing.JFrame {
 
-    /**
-     * Creates new form listagemVIEW
-     */
+    
+    private conectaDAO conexao;
+    private Connection conn;
+    
     public listagemVIEW() {
         initComponents();
+        this.conexao = new conectaDAO();
+        this.conn = conexao.Conectar();
+        CarregarLista();
     }
+    
+        public void CarregarLista(){
+            
+            ProdutosDAO dao = new ProdutosDAO();
+            //Cria o objeto da Lista
+            List<ProdutosDTO> lista = dao.ListaProdutos();
+            DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
+            listaProdutos.setRowSorter(new TableRowSorter<>(modelo));
+            modelo.setNumRows(0);
+            
+            for(ProdutosDTO p : lista){
+                Object[] obj = new Object[]{
+                    p.getId(),
+                    p.getNome(),
+                    p.getValor(),
+                    p.getStatus(),
+                };
+                    modelo.addRow(obj);
+            }
+            
+        }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
