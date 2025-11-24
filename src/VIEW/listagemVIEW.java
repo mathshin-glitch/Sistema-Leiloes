@@ -1,49 +1,46 @@
 package VIEW;
 
-
 import DAO.ProdutosDAO;
 import conexao.conectaDAO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 import objetos.ProdutosDTO;
 
 public class listagemVIEW extends javax.swing.JFrame {
 
-    
     private conectaDAO conexao;
     private Connection conn;
-    
+
     public listagemVIEW() {
         initComponents();
         this.conexao = new conectaDAO();
         this.conn = conexao.Conectar();
         CarregarLista();
     }
-    
-        public void CarregarLista(){
-            
-            ProdutosDAO dao = new ProdutosDAO();
-            //Cria o objeto da Lista
-            List<ProdutosDTO> lista = dao.ListaProdutos();
-            DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
-            listaProdutos.setRowSorter(new TableRowSorter<>(modelo));
-            modelo.setNumRows(0);
-            
-            for(ProdutosDTO p : lista){
-                Object[] obj = new Object[]{
-                    p.getId(),
-                    p.getNome(),
-                    p.getValor(),
-                    p.getStatus(),
-                };
-                    modelo.addRow(obj);
-            }
-            
+
+    public void CarregarLista() {
+
+        ProdutosDAO dao = new ProdutosDAO();
+        //Cria o objeto da Lista
+        List<ProdutosDTO> lista = dao.ListaProdutos();
+        DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
+        listaProdutos.setRowSorter(new TableRowSorter<>(modelo));
+        modelo.setNumRows(0);
+
+        for (ProdutosDTO p : lista) {
+            Object[] obj = new Object[]{
+                p.getId(),
+                p.getNome(),
+                p.getValor(),
+                p.getStatus(),};
+            modelo.addRow(obj);
         }
-        
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,7 +168,29 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        ProdutosDTO p = new ProdutosDTO();
+        ProdutosDAO dao = new ProdutosDAO();
+        conectaDAO c = new conectaDAO();
 
+        if (id_produto_venda.getText().isEmpty() || Integer.parseInt(id_produto_venda.getText()) <= 0) {
+            return;
+        }
+        //para aceitar somente numeros.
+        try {
+            int a = Integer.parseInt(id_produto_venda.getText());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Somente numeros");
+            return;
+        }
+
+        int venda = dao.VenderProduto(Integer.parseInt(id_produto_venda.getText()));
+        if (venda == 1) {
+            JOptionPane.showMessageDialog(null, "Produto Vendido com sucesso", "Venda Concluida", JOptionPane.PLAIN_MESSAGE);
+            id_produto_venda.setText("");
+            
+            CarregarLista();
+        }
+            
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
@@ -180,6 +199,7 @@ public class listagemVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        new cadastroVIEW().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 

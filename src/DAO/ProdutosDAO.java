@@ -72,5 +72,19 @@ public class ProdutosDAO {
                 return null;
         }
     }
+    
+    //Método para Vender Produto
+    public int VenderProduto(int id){
+        try{
+            String sql = "UPDATE produtos SET status = 'Vendido' where id = ?";
+            prep = this.conn.prepareStatement(sql);
+            prep.setInt(1, id);
+            int resultado = prep.executeUpdate();
+            return resultado;
+        }catch(SQLException ex){
+            System.out.println("Erro ao Vender Produtos");
+            return ex.getErrorCode();
+        }
+    }
 
 }
