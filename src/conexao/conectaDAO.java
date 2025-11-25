@@ -36,8 +36,8 @@ public class conectaDAO {
             System.out.println("Erro ao desconectar" + ex.getMessage());
         }
     }
-    
-    public Connection getConnection(){
+
+    public Connection getConnection() {
         return conn;
     }
 
