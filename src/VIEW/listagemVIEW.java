@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 import objetos.ProdutosDTO;
-
+import VIEW.listagemVIEW;
 public class listagemVIEW extends javax.swing.JFrame {
 
     private conectaDAO conexao;
@@ -64,7 +64,6 @@ public class listagemVIEW extends javax.swing.JFrame {
         btnVender = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         btnVendas = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -74,9 +73,12 @@ public class listagemVIEW extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 0, 0));
         setPreferredSize(new java.awt.Dimension(552, 481));
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 0));
+        jPanel1.setForeground(new java.awt.Color(51, 0, 0));
+        jPanel1.setToolTipText("");
         jPanel1.setPreferredSize(new java.awt.Dimension(561, 490));
 
         listaProdutos.setBackground(new java.awt.Color(255, 255, 255));
@@ -104,7 +106,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         lblVender.setText("Vender Produto (ID)");
 
         id_produto_venda.setBackground(new java.awt.Color(0, 0, 0));
-        id_produto_venda.setForeground(new java.awt.Color(0, 0, 0));
+        id_produto_venda.setForeground(new java.awt.Color(255, 255, 255));
         id_produto_venda.setCaretColor(new java.awt.Color(102, 0, 0));
         jScrollPane2.setViewportView(id_produto_venda);
 
@@ -138,9 +140,6 @@ public class listagemVIEW extends javax.swing.JFrame {
             }
         });
 
-        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,9 +161,7 @@ public class listagemVIEW extends javax.swing.JFrame {
                                 .addComponent(btnVoltar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addComponent(lblTitulo)))
@@ -182,13 +179,11 @@ public class listagemVIEW extends javax.swing.JFrame {
                     .addComponent(lblVender)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVender))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVendas)
                     .addComponent(btnVoltar))
-                .addGap(71, 71, 71))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,8 +228,8 @@ public class listagemVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        new TelaConsultarVendas().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -288,7 +283,6 @@ public class listagemVIEW extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblVender;
     private javax.swing.JTable listaProdutos;

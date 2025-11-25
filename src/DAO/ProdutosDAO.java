@@ -4,7 +4,6 @@ package DAO;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Adm
@@ -20,17 +19,16 @@ import objetos.ProdutosDTO;
 
 public class ProdutosDAO {
 
-    
     private Connection conn;
 
     public ProdutosDAO(Connection conn) {
         this.conn = conn;
     }
-    
+
     //Declaca os Objetos
     PreparedStatement prep; // faz consultas sql
     ResultSet resultset; // retorna dados do banco
-    
+
     //Método para casdastrar produtos no banco
     public int cadastrarProduto(ProdutosDTO produto) {
         try {
@@ -47,43 +45,66 @@ public class ProdutosDAO {
             return ex.getErrorCode();
         }
     }
-    
+
     //Método para Listar produtos no banco
-    public ArrayList<ProdutosDTO> ListaProdutos(){
-        try{
+    public ArrayList<ProdutosDTO> ListaProdutos() {
+        try {
             String sql = "SELECT * FROM produtos";
             prep = this.conn.prepareStatement(sql);
             ArrayList<ProdutosDTO> lista = new ArrayList<>();
             resultset = prep.executeQuery();
-            
-            while(resultset.next()){
+
+            while (resultset.next()) {
                 ProdutosDTO p = new ProdutosDTO();
                 p.setId(resultset.getInt("id"));
                 p.setNome(resultset.getString("nome"));
                 p.setValor(resultset.getInt("valor"));
                 p.setStatus(resultset.getString("status"));
                 lista.add(p);
-                
+
             }
-                return lista;
-        }catch(Exception ex){
+            return lista;
+        } catch (SQLException ex) {
             System.out.println("Erro ao retorna Lista do banco: " + ex.getMessage());
-                return null;
+            return null;
         }
     }
-    
+
     //Método para Vender Produto
-    public int VenderProduto(int id){
-        try{
+    public int VenderProduto(int id) {
+        try {
             String sql = "UPDATE produtos SET status = 'Vendido' where id = ?";
             prep = this.conn.prepareStatement(sql);
             prep.setInt(1, id);
             int resultado = prep.executeUpdate();
             return resultado;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("Erro ao Vender Produtos");
             return ex.getErrorCode();
         }
     }
 
+    //Metodo para criar lista somente com produtos vendidos
+    public ArrayList<ProdutosDTO> ProdutosVendido() {
+        try {
+            String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
+            prep = this.conn.prepareStatement(sql);
+            ArrayList<ProdutosDTO> lista = new ArrayList<>();
+            resultset = prep.executeQuery();
+
+            while (resultset.next()) {
+                ProdutosDTO p = new ProdutosDTO();
+                p.setId(resultset.getInt("id"));
+                p.setNome(resultset.getString("nome"));
+                p.setValor(resultset.getInt("valor"));
+                p.setStatus(resultset.getString("status"));
+                lista.add(p);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retorna dados: " + ex.getMessage());
+            return null;
+        }
+
+    }
 }
