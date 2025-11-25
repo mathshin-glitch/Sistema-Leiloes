@@ -106,7 +106,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         lblVender.setText("Vender Produto (ID)");
 
         id_produto_venda.setBackground(new java.awt.Color(0, 0, 0));
-        id_produto_venda.setForeground(new java.awt.Color(255, 255, 255));
+        id_produto_venda.setForeground(new java.awt.Color(0, 0, 0));
         id_produto_venda.setCaretColor(new java.awt.Color(102, 0, 0));
         jScrollPane2.setViewportView(id_produto_venda);
 
@@ -204,25 +204,32 @@ public class listagemVIEW extends javax.swing.JFrame {
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         ProdutosDTO p = new ProdutosDTO();
         ProdutosDAO dao = new ProdutosDAO(conn);
-        conectaDAO c = new conectaDAO();
-
-        if (id_produto_venda.getText().isEmpty() || Integer.parseInt(id_produto_venda.getText()) <= 0) {
+        String Stringid = id_produto_venda.getText().trim();
+        
+        //se estiver vazio
+        if (Stringid.isEmpty()) {
             return;
         }
+        
         //para aceitar somente numeros.
-        try {
-            int a = Integer.parseInt(id_produto_venda.getText());
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Somente numeros");
+        if(!Stringid.matches("\\d+")){
+            JOptionPane.showMessageDialog(null, "Somente números são permitidos");
             return;
         }
-
+        
+        //converte para numero agora.
+        int id = Integer.parseInt(Stringid);
+        if(id <= 0){
+            return;
+        }
+        
+        //realiza a venda
         int venda = dao.VenderProduto(Integer.parseInt(id_produto_venda.getText()));
         if (venda == 1) {
             JOptionPane.showMessageDialog(null, "Produto Vendido com sucesso", "Venda Concluida", JOptionPane.PLAIN_MESSAGE);
             id_produto_venda.setText("");
             
-            CarregarLista();
+            CarregarLista(); //atualiza tabela
         }
             
     }//GEN-LAST:event_btnVenderActionPerformed

@@ -154,7 +154,7 @@ public class TelaConsultarVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        new cadastroVIEW().setVisible(true);
+        new listagemVIEW().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
