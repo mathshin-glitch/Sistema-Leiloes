@@ -20,12 +20,11 @@ import objetos.ProdutosDTO;
 
 public class ProdutosDAO {
 
-    private conectaDAO conexao;
+    
     private Connection conn;
 
-    public ProdutosDAO() {
-        this.conexao = new conectaDAO(); // cria um novo objeto de conexão
-        this.conn = conexao.Conectar(); // armazena o metodo de conexão no Driver de conexão (Conn)
+    public ProdutosDAO(Connection conn) {
+        this.conn = conn;
     }
     
     //Declaca os Objetos

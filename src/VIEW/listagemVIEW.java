@@ -17,14 +17,14 @@ public class listagemVIEW extends javax.swing.JFrame {
 
     public listagemVIEW() {
         initComponents();
-        this.conexao = new conectaDAO();
-        this.conn = conexao.Conectar();
+        conexao = new conectaDAO();
+        conn = conexao.Conectar();
         CarregarLista();
     }
 
     public void CarregarLista() {
 
-        ProdutosDAO dao = new ProdutosDAO();
+        ProdutosDAO dao = new ProdutosDAO(conn);
         //Cria o objeto da Lista
         List<ProdutosDTO> lista = dao.ListaProdutos();
         DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
@@ -169,7 +169,7 @@ public class listagemVIEW extends javax.swing.JFrame {
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         ProdutosDTO p = new ProdutosDTO();
-        ProdutosDAO dao = new ProdutosDAO();
+        ProdutosDAO dao = new ProdutosDAO(conn);
         conectaDAO c = new conectaDAO();
 
         if (id_produto_venda.getText().isEmpty() || Integer.parseInt(id_produto_venda.getText()) <= 0) {

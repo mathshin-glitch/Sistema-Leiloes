@@ -1,6 +1,8 @@
 package VIEW;
 
 import DAO.ProdutosDAO;
+import java.sql.Connection;
+import conexao.conectaDAO;
 import javax.swing.JOptionPane;
 import objetos.ProdutosDTO;
 
@@ -15,11 +17,13 @@ import objetos.ProdutosDTO;
  */
 public class cadastroVIEW extends javax.swing.JFrame {
 
-    /**
-     * Creates new form cadastroVIEW
-     */
+    private conectaDAO conexao;
+    private Connection conn;
+    
     public cadastroVIEW() {
         initComponents();
+        conexao = new conectaDAO();
+        conn = conexao.Conectar();
     }
 
     /**
@@ -211,7 +215,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         produto.setValor(Integer.parseInt(valor));
         produto.setStatus(status);
         
-        ProdutosDAO produtodao = new ProdutosDAO();
+        ProdutosDAO produtodao = new ProdutosDAO(conn);
         int Resultado = produtodao.cadastrarProduto(produto);
         if(Resultado == 1){
             JOptionPane.showMessageDialog(null, "Produto cadastrado com Sucesso","Cadastro Concluido",JOptionPane.PLAIN_MESSAGE);
