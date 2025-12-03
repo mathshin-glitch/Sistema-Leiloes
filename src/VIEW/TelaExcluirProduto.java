@@ -4,17 +4,20 @@
  */
 package VIEW;
 
-/**
- *
- * @author mello
- */
+import DAO.ProdutosDAO;
+import conexao.conectaDAO;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 public class TelaExcluirProduto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaExcluirProduto
-     */
+    private conectaDAO conexao;
+    private Connection conn;
+
     public TelaExcluirProduto() {
         initComponents();
+        conexao = new conectaDAO();
+        conn = conexao.Conectar();
     }
 
     /**
@@ -26,21 +29,94 @@ public class TelaExcluirProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        lblID = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        btnExcluir = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblID.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblID.setText("ID");
+
+        btnExcluir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(155, 155, 155)
+                            .addComponent(btnExcluir)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(lblID)))
+                .addContainerGap(161, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(lblID)
+                .addGap(18, 18, 18)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(107, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        ProdutosDAO dao = new ProdutosDAO(conn);
+        String TextID = txtID.getText().trim();
+
+        if (TextID.isEmpty()) {
+            return;
+        }
+
+        if (!TextID.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Somente números são permitidos");
+            return;
+        }
+
+        int id = Integer.parseInt(TextID);
+        if (id <= 0) {
+            return;
+        }
+        
+        boolean resultado = dao.ExcluirProduto(id);
+        if(resultado == false){
+            JOptionPane.showMessageDialog(null, "Erro ao Inserir o Produto");
+            return;
+        }else{
+            JOptionPane.showMessageDialog(null,"Produto Excluido com Sucesso da Lista");
+            txtID.setText("");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +154,9 @@ public class TelaExcluirProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblID;
+    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }
