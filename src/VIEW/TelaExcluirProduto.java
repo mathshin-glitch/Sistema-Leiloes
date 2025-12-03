@@ -47,6 +47,7 @@ public class TelaExcluirProduto extends javax.swing.JFrame {
         txtID.setBackground(new java.awt.Color(0, 0, 0));
         txtID.setForeground(new java.awt.Color(255, 255, 255));
         txtID.setBorder(null);
+        txtID.setCaretColor(new java.awt.Color(102, 0, 0));
 
         btnExcluir.setBackground(new java.awt.Color(0, 102, 102));
         btnExcluir.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
