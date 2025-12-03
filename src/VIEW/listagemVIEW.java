@@ -59,11 +59,11 @@ public class listagemVIEW extends javax.swing.JFrame {
         listaProdutos = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
         lblVender = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        id_produto_venda = new javax.swing.JTextPane();
         btnVender = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         btnVendas = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        id_produto_venda = new javax.swing.JTextField();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -105,11 +105,6 @@ public class listagemVIEW extends javax.swing.JFrame {
         lblVender.setForeground(new java.awt.Color(255, 255, 255));
         lblVender.setText("Vender Produto (ID)");
 
-        id_produto_venda.setBackground(new java.awt.Color(0, 0, 0));
-        id_produto_venda.setForeground(new java.awt.Color(0, 0, 0));
-        id_produto_venda.setCaretColor(new java.awt.Color(102, 0, 0));
-        jScrollPane2.setViewportView(id_produto_venda);
-
         btnVender.setBackground(new java.awt.Color(0, 102, 102));
         btnVender.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
         btnVender.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,6 +135,21 @@ public class listagemVIEW extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setBackground(new java.awt.Color(0, 102, 102));
+        btnExcluir.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        id_produto_venda.setBackground(new java.awt.Color(0, 0, 0));
+        id_produto_venda.setForeground(new java.awt.Color(255, 255, 255));
+        id_produto_venda.setBorder(null);
+        id_produto_venda.setCaretColor(new java.awt.Color(102, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -147,8 +157,8 @@ public class listagemVIEW extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblVender)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(id_produto_venda, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVender)
                 .addGap(123, 123, 123))
@@ -158,6 +168,8 @@ public class listagemVIEW extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnExcluir)
+                                .addGap(76, 76, 76)
                                 .addComponent(btnVoltar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -174,16 +186,18 @@ public class listagemVIEW extends javax.swing.JFrame {
                 .addComponent(lblTitulo)
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblVender)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblVender)
+                        .addComponent(id_produto_venda, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnVender))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVendas)
-                    .addComponent(btnVoltar))
-                .addContainerGap(59, Short.MAX_VALUE))
+                    .addComponent(btnVoltar)
+                    .addComponent(btnExcluir))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,6 +258,11 @@ public class listagemVIEW extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        new TelaExcluirProduto().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,15 +299,15 @@ public class listagemVIEW extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnVendas;
     private javax.swing.JButton btnVender;
     private javax.swing.JButton btnVoltar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextPane id_produto_venda;
+    private javax.swing.JTextField id_produto_venda;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblVender;

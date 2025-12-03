@@ -107,4 +107,19 @@ public class ProdutosDAO {
         }
 
     }
+    
+    //Método para Excluir produto do Banco
+    public boolean ExcluirProduto (int id){
+        try{
+            String sql = "DELETE FROM produtos WHERE id = ?";
+            prep = this.conn.prepareStatement(sql);
+            prep.setInt(1, id);
+            prep.executeUpdate();
+            return true;
+        }catch(SQLException ex){
+            System.out.println("Erro ao Excluir Produto do Banco: " + ex.getMessage());
+            return false;
+        }
+        
+    }
 }
